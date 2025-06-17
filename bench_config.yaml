@@ -1,0 +1,194 @@
+# - n_messages: 1024 * 1024 * 2
+#   delay_micros: 0
+#   queue_length: 16
+#   impl_name: spsc::SpscTable yield
+# - n_messages: 1024 * 1024 * 2
+#   delay_micros: 0
+#   queue_length: 4
+#   impl_name: spsc::SpscTable yield
+# - n_messages: 1024 * 1024 * 2
+#   delay_micros: 0
+#   queue_length: 2
+#   impl_name: spsc::SpscTable yield
+
+# - n_messages: 1024 * 1024 * 2
+#   delay_micros: 0
+#   queue_length: 2
+#   impl_name: spsc::SpscTable spin
+# - n_messages: 1024 * 1024 * 2
+#   delay_micros: 0
+#   queue_length: 64
+#   impl_name: spsc::SpscTable spin
+
+# - n_messages: 1024 * 1024 * 2
+#   delay_micros: 0
+#   queue_length: 4
+#   impl_name: spsc::SpscTable condvar
+# - n_messages: 1024 * 1024 * 2
+#   delay_micros: 0
+#   queue_length: 2
+#   impl_name: spsc::SpscTable condvar
+
+# - n_messages: 1024 * 1024 * 2
+#   delay_micros: 0
+#   queue_length: 2
+#   impl_name: spsc::SpscTable call
+
+# - n_messages: 1024 * 1024 * 16
+#   delay_micros: 0
+#   queue_length: 64
+#   n_strong_observers: 8
+#   impl_name: spsc::SpscTable spin
+
+# - n_messages: 1024 * 1024 * 2
+#   delay_micros: 0
+#   queue_length: 2
+#   n_weak_observers: 2
+#   impl_name: spsc::SpscTable spin
+
+
+# Strong observers "grid"
+
+# - n_messages: 1024 * 1024 * 16
+#   delay_micros: 0
+#   queue_length: 16
+#   n_strong_observers: 0
+#   # busy_wait_iterations: 256
+#   impl_name: spsc::SpscTable yield
+
+# - n_messages: 1024 * 1024 * 16
+#   delay_micros: 0
+#   queue_length: 16
+#   n_strong_observers: 1
+#   # busy_wait_iterations: 256
+#   impl_name: spsc::SpscTable yield
+
+# - n_messages: 1024 * 1024 * 8
+#   delay_micros: 0
+#   queue_length: 16
+#   n_strong_observers: 2
+#   # busy_wait_iterations: 256
+#   impl_name: spsc::SpscTable yield
+
+# - n_messages: 1024 * 1024
+#   delay_micros: 0
+#   queue_length: 16
+#   n_strong_observers: 8
+#   # busy_wait_iterations: 256
+#   impl_name: spsc::SpscTable yield
+
+# Weak observers "grid"
+
+# - n_messages: 1024 * 1024
+#   delay_micros: 0
+#   queue_length: 4
+#   impl_name: spsc::SpscTable yield
+
+# - n_messages: 1024 * 1024
+#   delay_micros: 0
+#   queue_length: 4
+#   weak_observer_delays: [1000, 1000000]
+#   impl_name: spsc::SpscTable yield
+
+# - n_messages: 1024 * 1024
+#   delay_micros: 0
+#   queue_length: 4
+#   weak_observer_delays: [1000, 100, 10]
+#   impl_name: spsc::SpscTable yield
+
+# - n_messages: 1024 * 1024
+#   delay_micros: 0
+#   queue_length: 4
+#   weak_observer_delays: [100, 1000, "1000 * 1000", "1000 * 1000 * 2"]
+#   impl_name: spsc::SpscTable yield
+
+
+# - n_messages: 1024 * 1024 * 16
+#   queue_length: 64
+#   weak_observer_delays: [10, 100, 1000, 5000]
+#   impl_name: spsc::SpscTable call
+# - n_messages: 1024 * 1024 * 16
+#   queue_length: 64
+#   impl_name: spsc::SpscTable call no weak
+
+
+# - impl_name: spsc::SpscTable yield
+#   queue_length: 2
+#   n_strong_observers: 1
+#   n_messages: 1024 * 1024 * 2
+# - impl_name: spsc::SpscTable yield
+#   queue_length: 16
+#   n_strong_observers: 1
+#   n_messages: 1024 * 1024 * 2
+  
+
+# - impl_name: "ping-pong spsc::SpscTable yield"
+#   queue_length: 16
+#   delay: 10
+#   n_strong_observers: 0
+#   # weak_observer_delays: [100, 1000]
+#   n_messages: 1024 * 1024 * 16
+
+# - impl_name: "ping-pong spsc::SpscTable yield"
+#   queue_length: 16
+#   delay: 10
+#   n_strong_observers: 1
+#   # weak_observer_delays: [100, 1000]
+#   n_messages: 1024 * 1024 * 16
+
+# - impl_name: "ping-pong spsc::SpscTable yield"
+#   queue_length: 16
+#   delay: 1000
+#   n_strong_observers: 0
+#   # weak_observer_delays: [100, 1000]
+#   n_messages: 1024 * 1024
+
+# - impl_name: "ping-pong spsc::SpscTable yield"
+#   queue_length: 16
+#   delay: 1000
+#   n_strong_observers: 1
+#   # weak_observer_delays: [100, 1000]
+#   n_messages: 1024 * 1024
+
+
+
+# - impl_name: spsc::SpscTable yield
+#   queue_length: 16
+#   # n_strong_observers: 1
+#   n_messages: 1024 * 1024 * 2
+# - impl_name: spsc::SpscTable yield weak
+#   queue_length: 16
+#   # n_strong_observers: 1
+#   # weak_observer_delays: [100, 1000]
+#   n_messages: 1024 * 1024 * 2  
+# - impl_name: spsc::SpscTable yield weak
+#   queue_length: 16
+#   # n_strong_observers: 1
+#   weak_observer_delays: [100]
+#   n_messages: 1024 * 1024 * 2
+# - impl_name: spsc::SpscTable yield weak
+#   queue_length: 16
+#   # n_strong_observers: 1
+#   weak_observer_delays: [100, 100]
+#   n_messages: 1024 * 1024 * 2
+# - impl_name: spsc::SpscTable yield weak
+#   queue_length: 16
+#   # n_strong_observers: 1
+#   weak_observer_delays: [100, 100, 100, 100]
+#   n_messages: 1024 * 1024 * 2
+  
+
+
+
+
+- n_messages: 1024 * 1024 * 16
+  queue_length: 2
+  # weak_observer_delays: [1000, 10000, 1000000]
+  impl_name: spsc::SpscTable call
+- n_messages: 1024 * 1024 * 16
+  queue_length: 2
+  weak_observer_delays: [1000, 10000, 1000000, 100]
+  impl_name: spsc::SpscTable call
+- n_messages: 1024 * 1024 * 16
+  queue_length: 2
+  impl_name: direct call

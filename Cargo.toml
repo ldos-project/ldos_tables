@@ -1,0 +1,28 @@
+[package]
+name = "ldos_tables"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+static_assertions = "1"
+"capture-it" = "0.4"
+anyhow = "1.0"
+cpu-time = "1"
+kanal = "0.1"
+chrono = { version = "*", features = ["serde"] }
+crossbeam-utils = "0.8"
+clap = { version = "*" , features = ["derive"] }
+serde = { version = "*", features = ["derive"] }
+serde_yaml = "*"
+evalexpr = { version = "*" }
+itertools = "*"
+spin_sleep = "*"
+
+[[bin]]
+name = "bench"
+test = false
+bench = false
+
+[profile.release]
+panic = 'unwind'
+debug = true
