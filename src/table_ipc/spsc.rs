@@ -452,10 +452,12 @@ impl<T, const STRONG_OBSERVERS: bool, const WEAK_OBSERVERS: bool>
         // Check that the requested value is within the valid range of the buffer. This is needed to reduce range of
         // values that the generation needs to protect us from. Without this, the ABA "window" would be between getting
         // the cursor and calling this function. With this check, the window is from this check until the final
-        // generation check at the bottom of this function.
+        // generation check at the bottom of this function. With this check, a delay would need to be needs to be
+        // greater than 167ms (with some reasonable assumptions, but probably much more) to have any chance of an ABA
+        // issue.
         //
         // This read is relaxed ordering since it only narrows an ABA window and does not need to be precise.
-        let tail_index = self.tail_index.load(Ordering::Relaxed);
+        let tail_index = self.tail_index.load(Ordering::Relaxed); // <-- ABA window starts here.
         if index < tail_index.saturating_sub(self.len) || tail_index < index {
             return None;
         }
@@ -483,7 +485,7 @@ impl<T, const STRONG_OBSERVERS: bool, const WEAK_OBSERVERS: bool>
         // Clear our bit; this isn't required from an information transfer perspective, but provides for required
         // ordering. This is acquire-release ordering to guarantee that the read stays before any writes to this slot.
         // The producer will perform a matching acquire-release operation.
-        let state_after_read = slot_state.fetch_and(!mask, Ordering::AcqRel);
+        let state_after_read = slot_state.fetch_and(!mask, Ordering::AcqRel); // <-- ABA window ends here.
         if !Self::get_valid_bit(state_after_read)
             || Self::get_generation(state_after_read) != state_generation_before_read
         {
